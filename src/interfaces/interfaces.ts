@@ -1,8 +1,17 @@
-export interface IPostResponse {
-  userId: number;
+export interface IRow {
+  child: [null];
+  equipmentCosts: number;
+  estimatedProfit: number;
   id: number;
-  title: string;
-  body: string;
+  machineOperatorSalary: number;
+  mainCosts: number;
+  materials: number;
+  mimExploitation: number;
+  overheads: number;
+  rowName: string;
+  salary: number;
+  supportCosts: number;
+  total: number;
 }
 
-export type IPostResponses = IPostResponse[];
+export type IRows = IRow[];

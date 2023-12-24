@@ -1,15 +1,10 @@
 import { FC } from "react";
-import { useGetPostsQuery } from "../../api/windsApi";
 import styles from "./Header.module.scss";
 import { CgMenuGridR } from "react-icons/cg";
 import { TiArrowBack } from "react-icons/ti";
 import { FaChevronDown } from "react-icons/fa";
 
 export const Header: FC = () => {
-  //const link = useAppSelector((state) => state.master.activeLink);
-  const { data: posts } = useGetPostsQuery();
-  console.log(posts);
-
   return (
     <div className={styles.header}>
       <div className={styles.menu}>
