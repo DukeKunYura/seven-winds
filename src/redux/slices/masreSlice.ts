@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  activeLink: "home",
+  optionsActive: false,
 };
 
 export const masterSlice = createSlice({
   name: "master",
   initialState,
   reducers: {
-    setActiveLink: (state, action) => {
-      state.activeLink = action.payload;
+    setActiveOptions: (state, action) => {
+      state.optionsActive = action.payload;
     },
   },
 });
 
-export const { setActiveLink } = masterSlice.actions;
+export const { setActiveOptions } = masterSlice.actions;
 
 export default masterSlice.reducer;

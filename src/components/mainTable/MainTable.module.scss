@@ -1,52 +1,8 @@
 .mainTable {
-    color: rgb(180, 180, 180);
-}
-
-.tree{
-  --spacing: 1.5rem;
-  --radius  : 10px;
-}
-
-.tree li{
-    display: block;
-    position: relative;
-    padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
-}
-  
-.tree ul{
-    margin-left: calc(var(--radius) - var(--spacing));
-    padding-left: 0;
-}
-
-.tree ul li{
-  border-left : 1px solid #ddd;
-}
-  
-.tree ul li:last-child{
-  border-color : transparent;
-}
-
-.tree ul li::before{
-    content: '';
-    display: block;
-    position: absolute;
-    top: calc(var(--spacing) / -2);
-    left: -1px;
-    width: calc(var(--spacing) - 8px);
-    height: calc(var(--spacing) + 12px);
-    border: solid #ddd;
-    border-width: 0 0 1px 1px;
-}
-
-.item {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 40px;
-    margin-left: -16px;
-    z-index: 999999;
+    flex-direction: column;
+    flex: 1;
+    width: 100%;
+    color: rgb(180, 180, 180);
 
-    :hover {
-        background-color: aqua;
-    }
 }
