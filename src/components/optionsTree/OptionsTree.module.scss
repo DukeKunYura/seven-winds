@@ -1,77 +1,65 @@
-.mainTable {
-    color: rgb(180, 180, 180);
-}
-
-.tree{
+.tree {
   --spacing: 1.5rem;
-  --radius  : 10px;
-}
+  --radius: 10px;
 
-.tree li{
+  li {
     display: block;
     position: relative;
     padding-left: calc(2 * var(--spacing) - var(--radius) - 2px);
-}
-  
-.tree ul{
-    margin-left: calc(var(--radius) - var(--spacing));
-    padding-left: 0;
+
+    ul {
+      margin-left: calc(var(--radius) - var(--spacing));
+      padding-left: 0;
+      li {
+        border-left: 1px solid #ddd;
+
+        &:last-child {
+          border-color: transparent;
+        }
+
+        &::before {
+          content: "";
+          display: block;
+          position: absolute;
+          top: calc(var(--spacing) / -2);
+          left: -1px;
+          width: calc(var(--spacing) - 8px);
+          height: calc(var(--spacing) + 12px);
+          border: solid #ddd;
+          border-width: 0 0 1px 1px;
+        }
+      }
+    }
+  }
 }
 
-.tree ul li{
-  border-left : 1px solid #ddd;
-}
-  
-.tree ul li:last-child{
-  border-color : transparent;
-}
-
-.tree ul li::before{
-    content: '';
-    display: block;
-    position: absolute;
-    top: calc(var(--spacing) / -2);
-    left: -1px;
-    width: calc(var(--spacing) - 8px);
-    height: calc(var(--spacing) + 12px);
-    border: solid #ddd;
-    border-width: 0 0 1px 1px;
-}
-
-.item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 40px;
-    margin-left: -16px;
-    z-index: 999999;
-}
-
+.item,
 .option {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 40px;
-    margin-left: -16px;
-    z-index: 999999;
-}
-
-.optionActive {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #414144;
-    height: 25px;
-    width: 42px;
-    border-radius: 3px;
-    padding-right: 3px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 40px;
+  margin-left: -16px;
+  z-index: 999999;
 }
 
 .notActive {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 25px;
-    width: 42px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 25px;
+  width: 42px;
+}
+
+.optionActive {
+  @extend .notActive;
+  border-radius: 3px;
+  padding-right: 3px;
+  justify-content: space-between;
+  background-color: #414144;
+  z-index: 999999;
+
+  &:hover {
+    border: 1px solid #82828a;
+  }
 }

@@ -1,28 +1,23 @@
 .menu {
-    width: 177px;
-    border-right: 1px solid #82828a;
-
+  min-width: 177px;
+  border-right: 1px solid #82828a;
 }
 
 .item {
+  display: flex;
+  align-items: center;
+  color: whitesmoke;
+  margin: 8px;
+
+  .icon {
     display: flex;
-    align-items: center;
-    color: whitesmoke;
-    margin: 8px;
+    justify-content: center;
+    margin-left: 8px;
+  }
 
-    .icon {
-        display: flex;
-        justify-content: center;
-        margin-left: 8px;
-    }
-    
-    .text {
-        display: flex;
-        justify-content: center;
-        margin-left: 8px;
-    }
+  .text {
+    display: flex;
+    justify-content: center;
+    margin-left: 8px;
+  }
 }
-
-
-
-
