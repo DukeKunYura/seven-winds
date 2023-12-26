@@ -1,3 +1,15 @@
 .row {
-  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: auto;
+  background-color: aquamarine;
+  width: 88%;
+  margin-right: 8px;
+  height: 24px;
+
+  .name {
+    background-color: azure;
+    margin-right: 8px;
+  }
 }

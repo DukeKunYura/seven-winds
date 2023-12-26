@@ -6,5 +6,9 @@ type Props = {
 };
 
 export const RowData: FC<Props> = ({ name }) => {
-  return <div className={styles.row}>{name}</div>;
+  return (
+    <div className={styles.row}>
+      <div className={styles.name}>{name}</div>
+    </div>
+  );
 };
