@@ -1,11 +1,7 @@
 import { FC } from "react";
 import styles from "./TableHeader.module.scss";
-import { useGetPostsQuery } from "../../api/windsApi";
 
 export const TableHeader: FC = () => {
-  const { data: posts } = useGetPostsQuery();
-  console.log(posts);
-
   return (
     <div className={styles.header}>
       <div className={styles.level}>Уровень</div>
