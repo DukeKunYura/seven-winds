@@ -22,10 +22,10 @@ export const Rows: FC<Props> = ({ rows }) => {
     return (
       <div className={styles.list}>
         {arr.map((item: any) => (
-          <>
+          <div key={item.id}>
             <RowData row={item} />
             {item.child.length ? rowsMapper(item.child) : null}
-          </>
+          </div>
         ))}
       </div>
     );

@@ -27,10 +27,10 @@ export const Header: FC = () => {
             <FaChevronDown color="white" size="1em" />
           </div>
         </a>
-        <a className={styles.nav}>
+        <div className={styles.nav}>
           <a className={styles.link}>Строительно-монтажные работы</a>
           <a className={styles.link}></a>
-        </a>
+        </div>
       </div>
     </div>
   );
