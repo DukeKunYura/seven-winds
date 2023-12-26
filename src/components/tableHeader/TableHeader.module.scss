@@ -3,6 +3,7 @@
     flex-direction: row;
     margin-left: 8px;
     width: 99%;
+    min-width: 720px;
     height: 40px;
     align-items: center;
     justify-content: end;
@@ -10,14 +11,18 @@
 }
 
 .level {
-    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 110px;
+    width: 110px;
     margin-left: 8px;
 }
 
 .label {
     margin-left: 8px;
     margin-right: auto;
-
+    min-width: 120px;
 }
 
 .num {

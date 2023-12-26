@@ -4,13 +4,15 @@ import { PiFileTextFill } from "react-icons/pi";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { setActiveOptions } from "../../redux/slices/masreSlice";
-import { useGetRowsQuery } from "../../api/windsApi";
-import { RowData } from "../rowData/RowData";
+import { IRows } from "../../interfaces/interfaces";
 
-export const OptionsTree: FC = () => {
+type Props = {
+  rows: IRows;
+};
+export const OptionsTree: FC<Props> = ({ rows }) => {
   const active = useAppSelector((state) => state.master.optionsActive);
   const dispatch = useAppDispatch();
-  const { data: rows } = useGetRowsQuery();
+  //const { data: rows } = useGetRowsQuery();
   console.log(rows);
 
   const handleHover = () => {
@@ -58,7 +60,6 @@ export const OptionsTree: FC = () => {
                 />
                 {active && <RiDeleteBinFill color="#da3535" size="1.3em" />}
               </div>
-              {<RowData name={item.name} />}
             </div>
             {item.child.length ? treeMapper(item.child) : null}
           </li>
@@ -69,8 +70,15 @@ export const OptionsTree: FC = () => {
 
   const result = treeMapper(itemsArr);
 
+  const resultFromApi = treeMapper(rows);
+
+  // useEffect(() => {
+  //   const resultFromApi = treeMapper(rows)
+  // }, []);
+
   return (
     <div className={styles.mainTable}>
+      {resultFromApi}
       {result}
       <ul className={styles.tree} onMouseLeave={handleLeave}>
         {rows?.map((item) => (

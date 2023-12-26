@@ -5,4 +5,12 @@
   width: 100%;
   color: rgb(180, 180, 180);
   min-width: 500px;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: 500px;
+  }
 }
+

@@ -1,15 +1,32 @@
 .row {
   display: flex;
   flex-direction: row;
+  margin-left: 8px;
+  width: 100%;
+  height: 39px;
   align-items: center;
-  margin-left: auto;
-  background-color: aquamarine;
-  width: 88%;
-  margin-right: 8px;
-  height: 24px;
+  justify-content: end;
+  border-bottom: 1px solid #59595f;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 186px;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid #59595f;
+    border-width: 0 0 1px 1px;
+  }
 
   .name {
-    background-color: azure;
+    margin-left: 8px;
+    margin-right: auto;
+    min-width: 120px;
+  }
+
+  .num {
+    width: 140px;
     margin-right: 8px;
   }
 }
