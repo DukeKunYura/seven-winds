@@ -6,12 +6,12 @@ import {
   IRowResponse,
 } from "../interfaces/interfaces";
 
-const eID = import.meta.env.VITE_EID;
+//const eID = import.meta.env.VITE_EID;
 
 export const windsApi = createApi({
   reducerPath: "windsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `http://185.244.172.108:8081/v1/outlay-rows/entity/${eID}`,
+    baseUrl: `http://185.244.172.108:8081/v1/outlay-rows/entity/113777`,
   }),
   endpoints: (builder) => ({
     // получение всех строк
