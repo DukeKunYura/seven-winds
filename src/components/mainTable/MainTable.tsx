@@ -14,9 +14,9 @@ export const MainTable: FC = () => {
     <div className={styles.mainTable}>
       <TableHeader />
       <div className={styles.content}>
-        {rows && <InputRowData row={null} />}
-        {/* {rows && <OptionsTree rows={rows} />}
-        {rows && <Rows rows={rows} />} */}
+        {!rows && <InputRowData row={null} />}
+        {rows && <OptionsTree rows={rows} />}
+        {rows && <Rows rows={rows} />}
       </div>
     </div>
   );
