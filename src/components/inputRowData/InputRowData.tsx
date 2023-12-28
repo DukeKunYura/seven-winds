@@ -2,7 +2,8 @@ import { FC, KeyboardEvent, useState } from "react";
 import styles from "./InputRowData.module.scss";
 import { IRow, IRowSendData } from "../../interfaces/interfaces";
 import { useCreateRowMutation } from "../../api/windsApi";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { setIdEditingRow } from "../../redux/slices/masreSlice";
 
 type Props = {
   row: IRow | null;
@@ -26,6 +27,7 @@ export const InputRowData: FC<Props> = ({
   const [overheads, setOverheads] = useState<number | string>(0);
   const [estimatedProfit, setEstimatedProfit] = useState<number | string>(0);
   const [createRow] = useCreateRowMutation();
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && name !== "") {
@@ -48,6 +50,7 @@ export const InputRowData: FC<Props> = ({
       setEquipmentCosts(0);
       setOverheads(0);
       setEstimatedProfit(0);
+      dispatch(setIdEditingRow(null));
     }
   };
 

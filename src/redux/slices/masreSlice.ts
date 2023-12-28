@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   optionsActive: false,
   idEditingRow: null,
+  rowsData: [],
 };
 
 export const masterSlice = createSlice({
@@ -15,9 +16,13 @@ export const masterSlice = createSlice({
     setIdEditingRow: (state, action) => {
       state.idEditingRow = action.payload;
     },
+    setRowsData: (state, action) => {
+      state.rowsData = action.payload;
+    },
   },
 });
 
-export const { setActiveOptions, setIdEditingRow } = masterSlice.actions;
+export const { setActiveOptions, setIdEditingRow, setRowsData } =
+  masterSlice.actions;
 
 export default masterSlice.reducer;

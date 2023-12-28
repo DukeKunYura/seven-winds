@@ -1,22 +1,31 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styles from "./MainTable.module.scss";
 import { OptionsTree } from "../optionsTree/OptionsTree";
 import { TableHeader } from "../tableHeader/TableHeader";
 import { useGetRowsQuery } from "../../api/windsApi";
 import { Rows } from "../rows/Rows";
 import { InputRowData } from "../inputRowData/InputRowData";
+import { setRowsData } from "../../redux/slices/masreSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 export const MainTable: FC = () => {
+  const data = useAppSelector((state) => state.master.rowsData);
   const { data: rows, isSuccess } = useGetRowsQuery();
-  console.log(!rows);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setRowsData(rows));
+  }, [isSuccess]);
 
   return (
     <div className={styles.mainTable}>
       <TableHeader />
       <div className={styles.content}>
-        {rows?.length === 0 && <InputRowData row={null} firstRow={true} />}
-        {isSuccess && rows?.length !== 0 && <OptionsTree rows={rows} />}
-        {rows && <Rows rows={rows} />}
+        {data && data.length === 0 && (
+          <InputRowData row={null} firstRow={true} />
+        )}
+        {data && data.length !== 0 && <OptionsTree rows={data} />}
+        {data && <Rows rows={data} />}
       </div>
     </div>
   );

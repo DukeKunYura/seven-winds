@@ -26,10 +26,10 @@ export const Rows: FC<Props> = ({ rows }) => {
         {arr.map((item: any) => (
           <div key={item.id}>
             <RowData row={item} />
-            {item.id === idEditingRow && (
-              <InputRowData row={null} firstRow={false} />
-            )}
             {item.child.length ? rowsMapper(item.child) : null}
+            {/* {item.id === idEditingRow && (
+              <InputRowData row={null} firstRow={false} />
+            )} */}
           </div>
         ))}
       </div>
