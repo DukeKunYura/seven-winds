@@ -1,45 +1,125 @@
-import { FC } from "react";
+import { FC, KeyboardEvent, useState } from "react";
 import styles from "./InputRowData.module.scss";
-import { IRow } from "../../interfaces/interfaces";
+import { IRow, IRowSendData } from "../../interfaces/interfaces";
+import { useCreateRowMutation } from "../../api/windsApi";
 
 type Props = {
   row: IRow | null;
 };
 
-export const InputRowData: FC<Props> = ({ row = null }) => {
+export const InputRowData: FC<Props> = ({
+  row = {
+    name: "",
+    salary: 0,
+    equipmentCosts: 0,
+    overheads: 0,
+    estimatedProfit: 0,
+  },
+}) => {
+  const [name, setName] = useState<string>("");
+  const [salary, setSalary] = useState<number | string>(0);
+  const [equipmentCosts, setEquipmentCosts] = useState<number | string>(0);
+  const [overheads, setOverheads] = useState<number | string>(0);
+  const [estimatedProfit, setEstimatedProfit] = useState<number | string>(0);
+  const [createRow] = useCreateRowMutation();
+
+  const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && name !== "") {
+      console.log("enter");
+      const newRow: IRowSendData = {
+        equipmentCosts: equipmentCosts as number,
+        estimatedProfit: estimatedProfit as number,
+        machineOperatorSalary: 0,
+        mainCosts: 0,
+        materials: 0,
+        mimExploitation: 0,
+        overheads: overheads as number,
+        parentId: null,
+        rowName: name,
+        salary: salary as number,
+        supportCosts: 0,
+      };
+      await createRow(newRow);
+      setName("");
+      setSalary(0);
+      setEquipmentCosts(0);
+      setOverheads(0);
+      setEstimatedProfit(0);
+    }
+  };
+
   return (
-    <div className={styles.row}>
+    <form className={styles.row}>
       <div className={styles.name}>
-        <input className={styles.inputName} type="text"></input>
-      </div>
-      <div className={styles.num}>
         <input
-          className={styles.input}
-          type="number"
-          value={row?.salary}
+          className={styles.inputName}
+          type="text"
+          value={name}
+          onChange={(e) => {
+            setName(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            handleSubmit(e);
+          }}
         ></input>
       </div>
       <div className={styles.num}>
         <input
           className={styles.input}
           type="number"
-          value={row?.equipmentCosts}
+          value={salary}
+          onChange={(e) => {
+            setSalary(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            handleSubmit(e);
+          }}
+          defaultValue={row?.salary}
         ></input>
       </div>
       <div className={styles.num}>
         <input
           className={styles.input}
           type="number"
-          value={row?.overheads}
+          value={equipmentCosts}
+          onChange={(e) => {
+            setEquipmentCosts(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            handleSubmit(e);
+          }}
+          defaultValue={row?.equipmentCosts}
         ></input>
       </div>
       <div className={styles.num}>
         <input
           className={styles.input}
           type="number"
-          value={row?.estimatedProfit}
+          value={overheads}
+          onChange={(e) => {
+            setOverheads(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            handleSubmit(e);
+          }}
+          defaultValue={row?.overheads}
         ></input>
       </div>
-    </div>
+      <div className={styles.num}>
+        <input
+          className={styles.input}
+          type="number"
+          min={0}
+          value={estimatedProfit}
+          onChange={(e) => {
+            setEstimatedProfit(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            handleSubmit(e);
+          }}
+          defaultValue={row?.estimatedProfit}
+        ></input>
+      </div>
+    </form>
   );
 };

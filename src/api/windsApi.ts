@@ -19,7 +19,7 @@ export const windsApi = createApi({
       query: () => `/row/list`,
     }),
     // создание новой строки
-    createRow: builder.query<IRowResponse, IRowSendData>({
+    createRow: builder.mutation<IRowResponse, IRowSendData>({
       query: (row) => ({
         url: `/row/create`,
         method: "POST",
@@ -27,7 +27,7 @@ export const windsApi = createApi({
       }),
     }),
     // редактирвание строки
-    editRow: builder.query<IRowResponse, [IRowUpdateData, number]>({
+    editRow: builder.mutation<IRowResponse, [IRowUpdateData, number]>({
       query: ([row, id = null]) => ({
         url: `/row/${id}/update`,
         method: "POST",
@@ -35,7 +35,7 @@ export const windsApi = createApi({
       }),
     }),
     // удаление строки
-    deleteRow: builder.query<void, number>({
+    deleteRow: builder.mutation<void, number>({
       query: (id) => ({
         url: `/row/${id}/delete`,
         method: "DELETE",
@@ -46,7 +46,7 @@ export const windsApi = createApi({
 
 export const {
   useGetRowsQuery,
-  useCreateRowQuery,
-  useEditRowQuery,
-  useDeleteRowQuery,
+  useCreateRowMutation,
+  useEditRowMutation,
+  useDeleteRowMutation,
 } = windsApi;

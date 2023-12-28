@@ -7,16 +7,16 @@ import { Rows } from "../rows/Rows";
 import { InputRowData } from "../inputRowData/InputRowData";
 
 export const MainTable: FC = () => {
-  const { data: rows } = useGetRowsQuery();
-  console.log(rows);
+  const { data: rows, isSuccess } = useGetRowsQuery();
+  console.log(!rows);
 
   return (
     <div className={styles.mainTable}>
       <TableHeader />
       <div className={styles.content}>
-        {rows && <InputRowData row={null} />}
-        {/* {rows && <OptionsTree rows={rows} />}
-        {rows && <Rows rows={rows} />} */}
+        {rows?.length === 0 && <InputRowData row={null} />}
+        {isSuccess && rows?.length !== 0 && <OptionsTree rows={rows} />}
+        {rows && <Rows rows={rows} />}
       </div>
     </div>
   );

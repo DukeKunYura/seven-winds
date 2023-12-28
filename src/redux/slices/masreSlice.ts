@@ -13,7 +13,7 @@ export const masterSlice = createSlice({
       state.optionsActive = action.payload;
     },
     setIdEditingRow: (state, action) => {
-      state.optionsActive = action.payload;
+      state.idEditingRow = action.payload;
     },
   },
 });
