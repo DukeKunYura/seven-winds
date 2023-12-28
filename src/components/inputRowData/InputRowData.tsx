@@ -1,9 +1,14 @@
-import { FC, KeyboardEvent, useState } from "react";
+import { FC, KeyboardEvent, useEffect, useState } from "react";
 import styles from "./InputRowData.module.scss";
-import { IRow, IRowSendData } from "../../interfaces/interfaces";
+import {
+  IRow,
+  IRowResponse,
+  IRowSendData,
+  IRows,
+} from "../../interfaces/interfaces";
 import { useCreateRowMutation } from "../../api/windsApi";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setIdEditingRow } from "../../redux/slices/masreSlice";
+import { setIdEditingRow, setRowsData } from "../../redux/slices/masreSlice";
 
 type Props = {
   row: IRow | null;
@@ -21,12 +26,13 @@ export const InputRowData: FC<Props> = ({
   firstRow = false,
 }) => {
   const idEditingRow = useAppSelector((state) => state.master.idEditingRow);
+  const rows = useAppSelector((state) => state.master.rowsData);
   const [name, setName] = useState<string>("");
   const [salary, setSalary] = useState<number | string>(0);
   const [equipmentCosts, setEquipmentCosts] = useState<number | string>(0);
   const [overheads, setOverheads] = useState<number | string>(0);
   const [estimatedProfit, setEstimatedProfit] = useState<number | string>(0);
-  const [createRow] = useCreateRowMutation();
+  const [createRow, result] = useCreateRowMutation();
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
@@ -53,6 +59,37 @@ export const InputRowData: FC<Props> = ({
       dispatch(setIdEditingRow(null));
     }
   };
+
+  const itemAdder = (id: number, rows: IRows, row: IRowResponse): IRows => {
+    return rows.map((item) => {
+      if (item.id === 99999999) {
+        return {
+          ...item,
+          id: row.current.id,
+          rowName: row.current.rowName,
+          salary: row.current.salary,
+          equipmentCosts: row.current.equipmentCosts,
+          overheads: row.current.overheads,
+          estimatedProfit: row.current.estimatedProfit,
+        };
+      } else if (item.child.length !== 0) {
+        return {
+          ...item,
+          child: itemAdder(id, item.child, row),
+        };
+      } else {
+        return item;
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (result.data && idEditingRow !== null) {
+      console.log(result.data);
+      dispatch(setRowsData(itemAdder(idEditingRow, rows, result.data)));
+      dispatch(setIdEditingRow(null));
+    }
+  }, [result]);
 
   return (
     <form className={firstRow ? styles.row : styles.rowAdder}>

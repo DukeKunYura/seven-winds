@@ -16,9 +16,9 @@ type Props = {
 };
 export const OptionsTree: FC<Props> = ({ rows }) => {
   const active = useAppSelector((state) => state.master.optionsActive);
-
+  const idEditingRow = useAppSelector((state) => state.master.idEditingRow);
   const dispatch = useAppDispatch();
-  const [isActiveAdder, setIsActiveAdder] = useState(false);
+  //const [isActiveAdder, setIsActiveAdder] = useState(false);
   const [deleteRow] = useDeleteRowMutation();
 
   const handleHover = () => {
@@ -31,7 +31,6 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
 
   const handleAdder = (id: number) => {
     dispatch(setIdEditingRow(id));
-    setIsActiveAdder(true);
 
     const adder: IRow = {
       child: [],
@@ -61,7 +60,7 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
       });
     };
 
-    if (!isActiveAdder) {
+    if (idEditingRow === null) {
       dispatch(setRowsData(inputItemAdder(id, rows)));
     }
   };
