@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./OptionsTree.module.scss";
 import { PiFileTextFill } from "react-icons/pi";
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -16,7 +16,6 @@ type Props = {
 };
 export const OptionsTree: FC<Props> = ({ rows }) => {
   const active = useAppSelector((state) => state.master.optionsActive);
-  const rowsR = useAppSelector((state) => state.master.rowsData);
 
   const dispatch = useAppDispatch();
   const [isActiveAdder, setIsActiveAdder] = useState(false);
@@ -51,22 +50,19 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
     };
 
     const inputItemAdder = (id: number, rows: IRows): IRows => {
-      console.log("глубина");
       return rows.map((item) => {
         if (item.id === id) {
-          console.log(item.id);
           return { ...item, child: [...item.child, adder] };
+        } else if (item.child.length !== 0) {
+          return { ...item, child: inputItemAdder(id, item.child) };
         } else {
-          if (item.child.length !== 0) {
-            inputItemAdder(id, item.child);
-          }
           return item;
         }
       });
     };
 
     if (!isActiveAdder) {
-      dispatch(setRowsData(inputItemAdder(id, rowsR)));
+      dispatch(setRowsData(inputItemAdder(id, rows)));
     }
   };
 
@@ -106,9 +102,5 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
     );
   };
 
-  // useEffect(()=> {
-  //   result
-  // },[])
-
-  return <div className={styles.mainTable}>{treeMapper(rowsR)}</div>;
+  return <div className={styles.mainTable}>{treeMapper(rows)}</div>;
 };
