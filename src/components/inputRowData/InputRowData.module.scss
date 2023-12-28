@@ -14,6 +14,7 @@
     display: block;
     position: absolute;
     left: 186px;
+    padding-right: 186px;
     height: 40px;
     border-bottom: 1px solid #59595f;
     border-width: 0 0 1px 1px;
@@ -57,7 +58,74 @@
     -webkit-appearance: none; // Yeah, yeah everybody write about it
   }
 
-  input[type='number'],
+  input[type="number"],
+  input[type="number"]:hover,
+  input[type="number"]:focus {
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+}
+
+.rowAdder {
+  display: flex;
+  flex-direction: row;
+  margin-left: 8px;
+  min-width: 910px;
+  width: 98%;
+  height: 39px;
+  align-items: center;
+  justify-content: end;
+  border-bottom: 1px solid #59595f;
+
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 186px;
+    height: 40px;
+    border-bottom: 1px solid #59595f;
+    border-width: 0 0 1px 1px;
+  }
+
+  .name {
+    margin-left: 0px;
+    margin-right: auto;
+    min-width: 100px;
+  }
+
+  .num {
+    width: 140px;
+    margin-right: 8px;
+  }
+
+  .inputName {
+    background-color: #27272a;
+    border: 1px solid #59595f;
+    color: rgb(212, 212, 212);
+    border-radius: 4px;
+    height: 20px;
+    min-width: 100px;
+    padding-left: 6px;
+  }
+
+  .input {
+    background-color: #27272a;
+    border: 1px solid #59595f;
+    color: rgb(212, 212, 212);
+    border-radius: 4px;
+    height: 20px;
+    width: 128px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 6px;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; // Yeah, yeah everybody write about it
+  }
+
+  input[type="number"],
   input[type="number"]:hover,
   input[type="number"]:focus {
     appearance: none;

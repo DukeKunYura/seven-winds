@@ -2,9 +2,11 @@ import { FC, KeyboardEvent, useState } from "react";
 import styles from "./InputRowData.module.scss";
 import { IRow, IRowSendData } from "../../interfaces/interfaces";
 import { useCreateRowMutation } from "../../api/windsApi";
+import { useAppSelector } from "../../redux/hooks";
 
 type Props = {
   row: IRow | null;
+  firstRow: boolean;
 };
 
 export const InputRowData: FC<Props> = ({
@@ -15,7 +17,9 @@ export const InputRowData: FC<Props> = ({
     overheads: 0,
     estimatedProfit: 0,
   },
+  firstRow = false,
 }) => {
+  const idEditingRow = useAppSelector((state) => state.master.idEditingRow);
   const [name, setName] = useState<string>("");
   const [salary, setSalary] = useState<number | string>(0);
   const [equipmentCosts, setEquipmentCosts] = useState<number | string>(0);
@@ -25,7 +29,6 @@ export const InputRowData: FC<Props> = ({
 
   const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && name !== "") {
-      console.log("enter");
       const newRow: IRowSendData = {
         equipmentCosts: equipmentCosts as number,
         estimatedProfit: estimatedProfit as number,
@@ -34,7 +37,7 @@ export const InputRowData: FC<Props> = ({
         materials: 0,
         mimExploitation: 0,
         overheads: overheads as number,
-        parentId: null,
+        parentId: idEditingRow,
         rowName: name,
         salary: salary as number,
         supportCosts: 0,
@@ -49,7 +52,7 @@ export const InputRowData: FC<Props> = ({
   };
 
   return (
-    <form className={styles.row}>
+    <form className={firstRow ? styles.row : styles.rowAdder}>
       <div className={styles.name}>
         <input
           className={styles.inputName}
