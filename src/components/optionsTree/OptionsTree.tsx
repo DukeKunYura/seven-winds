@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./OptionsTree.module.scss";
 import { PiFileTextFill } from "react-icons/pi";
 import { RiDeleteBinFill } from "react-icons/ri";
