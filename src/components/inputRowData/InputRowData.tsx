@@ -36,7 +36,8 @@ export const InputRowData: FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && name !== "") {
+    console.log(idEditingRow);
+    if (e.key === "Enter" && name !== "" && idEditingRow !== 0) {
       const newRow: IRowSendData = {
         equipmentCosts: equipmentCosts as number,
         estimatedProfit: estimatedProfit as number,
@@ -56,7 +57,19 @@ export const InputRowData: FC<Props> = ({
       setEquipmentCosts(0);
       setOverheads(0);
       setEstimatedProfit(0);
-      dispatch(setIdEditingRow(null));
+
+      // if (result.data && result.data.changed.length > 0) {
+      //   console.log("??");
+      //   result.data.changed.forEach((item) =>
+      //     dispatch(setRowsData(parentsItemAdder(rows, item)))
+      //   );
+      // }
+      // if (result.data) {
+      //   console.log(result.data);
+      //   dispatch(setRowsData(itemAdder(idEditingRow, rows, result.data)));
+      // }
+
+      //dispatch(setIdEditingRow(null));
     }
   };
 
@@ -83,11 +96,41 @@ export const InputRowData: FC<Props> = ({
     });
   };
 
+  const parentsItemAdder = (rows: IRows, row: IRow): IRows => {
+    return rows.map((item) => {
+      if (item.id === row.id) {
+        console.log(row.salary);
+        return {
+          ...item,
+          salary: row.salary,
+          equipmentCosts: row.equipmentCosts,
+          overheads: row.overheads,
+          estimatedProfit: row.estimatedProfit,
+        };
+      } else if (item.child.length !== 0) {
+        return {
+          ...item,
+          child: parentsItemAdder(item.child, row),
+        };
+      } else {
+        return item;
+      }
+    });
+  };
+
   useEffect(() => {
-    if (result.data && idEditingRow !== null) {
-      console.log(result.data);
-      dispatch(setRowsData(itemAdder(idEditingRow, rows, result.data)));
-      dispatch(setIdEditingRow(null));
+    console.log(result);
+    if (result.status === "fulfilled") {
+      console.log("fulfilled");
+      if (result.data && result.data.changed.length > 0) {
+        result.data.changed.forEach((item) =>
+          dispatch(setRowsData(parentsItemAdder(rows, item)))
+        );
+      }
+      if (result.data) {
+        dispatch(setRowsData(itemAdder(idEditingRow, rows, result.data)));
+        dispatch(setIdEditingRow(0));
+      }
     }
   }, [result]);
 
