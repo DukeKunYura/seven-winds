@@ -1,13 +1,11 @@
 import { FC } from "react";
 import styles from "./Rows.module.scss";
 import { RowData } from "../rowData/RowData";
-import { IRows } from "../../interfaces/interfaces";
 import { InputRowData } from "../inputRowData/InputRowData";
+import { useAppSelector } from "../../redux/hooks";
 
-type Props = {
-  rows: IRows;
-};
-export const Rows: FC<Props> = ({ rows }) => {
+export const Rows: FC = () => {
+  const rows = useAppSelector((state) => state.master.rowsData);
   const rowsMapper = (arr: any[]) => {
     return (
       <div className={styles.list}>
@@ -25,7 +23,5 @@ export const Rows: FC<Props> = ({ rows }) => {
     );
   };
 
-  const result = rowsMapper(rows);
-
-  return <>{result}</>;
+  return <>{rowsMapper(rows)}</>;
 };

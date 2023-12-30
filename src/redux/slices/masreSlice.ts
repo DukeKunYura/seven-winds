@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   optionsActive: false,
-  idEditingRow: null,
+  idEditingRow: 0,
   rowsData: [],
 };
 

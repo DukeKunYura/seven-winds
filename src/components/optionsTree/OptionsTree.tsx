@@ -18,7 +18,6 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
   const active = useAppSelector((state) => state.master.optionsActive);
   const idEditingRow = useAppSelector((state) => state.master.idEditingRow);
   const dispatch = useAppDispatch();
-  //const [isActiveAdder, setIsActiveAdder] = useState(false);
   const [deleteRow] = useDeleteRowMutation();
 
   const handleHover = () => {
@@ -31,7 +30,6 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
 
   const handleAdder = (id: number) => {
     dispatch(setIdEditingRow(id));
-
     const adder: IRow = {
       child: [],
       equipmentCosts: 0,
@@ -60,7 +58,7 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
       });
     };
 
-    if (idEditingRow === null) {
+    if (idEditingRow === 0) {
       dispatch(setRowsData(inputItemAdder(id, rows)));
     }
   };
