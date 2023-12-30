@@ -25,7 +25,7 @@ export const MainTable: FC = () => {
           <InputRowData row={null} firstRow={true} />
         )}
         {data && data.length !== 0 && <OptionsTree rows={data} />}
-        {data && <Rows rows={data} />}
+        {data && <Rows />}
       </div>
     </div>
   );

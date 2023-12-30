@@ -36,7 +36,6 @@ export const InputRowData: FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(idEditingRow);
     if (e.key === "Enter" && name !== "" && idEditingRow !== 0) {
       const newRow: IRowSendData = {
         equipmentCosts: equipmentCosts as number,
@@ -57,19 +56,6 @@ export const InputRowData: FC<Props> = ({
       setEquipmentCosts(0);
       setOverheads(0);
       setEstimatedProfit(0);
-
-      // if (result.data && result.data.changed.length > 0) {
-      //   console.log("??");
-      //   result.data.changed.forEach((item) =>
-      //     dispatch(setRowsData(parentsItemAdder(rows, item)))
-      //   );
-      // }
-      // if (result.data) {
-      //   console.log(result.data);
-      //   dispatch(setRowsData(itemAdder(idEditingRow, rows, result.data)));
-      // }
-
-      //dispatch(setIdEditingRow(null));
     }
   };
 
@@ -119,16 +105,17 @@ export const InputRowData: FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log(result);
     if (result.status === "fulfilled") {
-      console.log("fulfilled");
-      if (result.data && result.data.changed.length > 0) {
-        result.data.changed.forEach((item) =>
-          dispatch(setRowsData(parentsItemAdder(rows, item)))
-        );
-      }
       if (result.data) {
-        dispatch(setRowsData(itemAdder(idEditingRow, rows, result.data)));
+        let newRows: IRows = [];
+
+        newRows = itemAdder(idEditingRow, rows, result.data);
+        if (result.data && result.data.changed.length > 0) {
+          result.data.changed.forEach(
+            (item) => (newRows = parentsItemAdder(newRows, item))
+          );
+        }
+        dispatch(setRowsData(newRows));
         dispatch(setIdEditingRow(0));
       }
     }

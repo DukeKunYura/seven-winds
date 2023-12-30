@@ -30,8 +30,6 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
 
   const handleAdder = (id: number) => {
     dispatch(setIdEditingRow(id));
-    console.log(idEditingRow);
-
     const adder: IRow = {
       child: [],
       equipmentCosts: 0,

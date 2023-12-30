@@ -14,9 +14,7 @@ export const masterSlice = createSlice({
       state.optionsActive = action.payload;
     },
     setIdEditingRow: (state, action) => {
-      //console.log(action.payload);
       state.idEditingRow = action.payload;
-      console.log(state.idEditingRow);
     },
     setRowsData: (state, action) => {
       state.rowsData = action.payload;
