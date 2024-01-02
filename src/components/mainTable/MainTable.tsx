@@ -4,7 +4,6 @@ import { OptionsTree } from "../optionsTree/OptionsTree";
 import { TableHeader } from "../tableHeader/TableHeader";
 import { useGetRowsQuery } from "../../api/windsApi";
 import { Rows } from "../rows/Rows";
-import { InputRowData } from "../inputRowData/InputRowData";
 import { setRowsData } from "../../redux/slices/masreSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
@@ -21,10 +20,7 @@ export const MainTable: FC = () => {
     <div className={styles.mainTable}>
       <TableHeader />
       <div className={styles.content}>
-        {data && data.length === 0 && (
-          <InputRowData row={null} firstRow={true} />
-        )}
-        {data && data.length !== 0 && <OptionsTree rows={data} />}
+        {data && <OptionsTree rows={data} />}
         {data && <Rows />}
       </div>
     </div>

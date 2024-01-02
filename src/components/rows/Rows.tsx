@@ -9,6 +9,7 @@ export const Rows: FC = () => {
   const rowsMapper = (arr: any[]) => {
     return (
       <div className={styles.list}>
+        {rows.length === 0 && <InputRowData row={null} firstRow={true} />}
         {arr.map((item: any) => (
           <div key={item.id}>
             {item.id !== 99999999 ? (
