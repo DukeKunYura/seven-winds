@@ -4,7 +4,6 @@ import { OptionsTree } from "../optionsTree/OptionsTree";
 import { TableHeader } from "../tableHeader/TableHeader";
 import { useGetRowsQuery } from "../../api/windsApi";
 import { Rows } from "../rows/Rows";
-import { InputRowData } from "../inputRowData/InputRowData";
 import { setRowsData } from "../../redux/slices/masreSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 

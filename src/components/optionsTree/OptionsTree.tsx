@@ -20,6 +20,27 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
   const dispatch = useAppDispatch();
   const [deleteRow] = useDeleteRowMutation();
 
+  const itemDeleter = (id: number, rows: IRows): IRows => {
+    let newRows: IRows = [];
+    newRows = rows.filter((item) => item.id !== id);
+    return newRows.map((item) => {
+      if (item.child.length !== 0) {
+        return { ...item, child: itemDeleter(id, item.child) };
+      } else {
+        return item;
+      }
+    });
+  };
+
+  // const parentsItemUpdater= (rows: IRows, row: IRow): IRows => {
+  //   return rows
+  // };
+
+  const handleDeleter = async (id: number) => {
+    await deleteRow(id);
+    dispatch(setRowsData(itemDeleter(id, rows)));
+  };
+
   const handleHover = () => {
     dispatch(setActiveOptions(true));
   };
@@ -84,7 +105,7 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
                 {active && (
                   <RiDeleteBinFill
                     onClick={() => {
-                      deleteRow(item.id);
+                      handleDeleter(item.id);
                     }}
                     color="#da3535"
                     size="1.3em"
