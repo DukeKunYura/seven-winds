@@ -36,7 +36,11 @@ export const InputRowData: FC<Props> = ({
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && name !== "" && idEditingRow !== 0) {
+    if (
+      e.key === "Enter" &&
+      name !== "" &&
+      (idEditingRow !== 0 || rows.length === 0)
+    ) {
       const newRow: IRowSendData = {
         equipmentCosts: equipmentCosts as number,
         estimatedProfit: estimatedProfit as number,
@@ -45,7 +49,7 @@ export const InputRowData: FC<Props> = ({
         materials: 0,
         mimExploitation: 0,
         overheads: overheads as number,
-        parentId: idEditingRow,
+        parentId: idEditingRow === 0 ? null : idEditingRow,
         rowName: name,
         salary: salary as number,
         supportCosts: 0,
@@ -106,9 +110,11 @@ export const InputRowData: FC<Props> = ({
 
   useEffect(() => {
     if (result.status === "fulfilled") {
-      if (result.data) {
-        let newRows: IRows = [];
-
+      let newRows: IRows = [];
+      if (rows.length === 0) {
+        newRows = [{ ...result.data.current, child: [] }];
+        dispatch(setRowsData(newRows));
+      } else if (result.data) {
         newRows = itemAdder(idEditingRow, rows, result.data);
         if (result.data && result.data.changed.length > 0) {
           result.data.changed.forEach(
@@ -122,7 +128,7 @@ export const InputRowData: FC<Props> = ({
   }, [result]);
 
   return (
-    <form className={firstRow ? styles.row : styles.rowAdder}>
+    <form className={firstRow ? styles.rowAdder : styles.row}>
       <div className={styles.name}>
         <input
           className={styles.inputName}

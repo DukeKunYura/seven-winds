@@ -21,10 +21,7 @@ export const MainTable: FC = () => {
     <div className={styles.mainTable}>
       <TableHeader />
       <div className={styles.content}>
-        {data && data.length === 0 && (
-          <InputRowData row={null} firstRow={true} />
-        )}
-        {data && data.length !== 0 && <OptionsTree rows={data} />}
+        {data && <OptionsTree rows={data} />}
         {data && <Rows />}
       </div>
     </div>

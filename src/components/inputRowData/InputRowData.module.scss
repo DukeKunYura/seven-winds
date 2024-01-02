@@ -21,7 +21,9 @@
   }
 
   .name {
-    margin-left: 120px;
+    display: flex;
+    align-items: start;
+    justify-content: start;
     margin-right: auto;
     min-width: 100px;
   }
