@@ -8,7 +8,7 @@ import {
   setIdEditingRow,
   setRowsData,
 } from "../../redux/slices/masreSlice";
-import { IRow, IRowResponse, IRows } from "../../interfaces/interfaces";
+import { IRow, IRows } from "../../interfaces/interfaces";
 import { useDeleteRowMutation } from "../../api/windsApi";
 
 type Props = {
