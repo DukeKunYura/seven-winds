@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import styles from "./OptionsTree.module.scss";
 import { PiFileTextFill } from "react-icons/pi";
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -18,7 +18,7 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
   const active = useAppSelector((state) => state.master.optionsActive);
   const idEditingRow = useAppSelector((state) => state.master.idEditingRow);
   const dispatch = useAppDispatch();
-  const [deleteRow] = useDeleteRowMutation();
+  const [deleteRow, result] = useDeleteRowMutation();
 
   const itemDeleter = (id: number, rows: IRows): IRows => {
     let newRows: IRows = [];
@@ -32,12 +32,29 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
     });
   };
 
-  // const parentsItemUpdater= (rows: IRows, row: IRow): IRows => {
-  //   return rows
-  // };
+  const parentsItemUpdater = (rows: IRows, row: IRow): IRows => {
+    return rows.map((item) => {
+      if (item.id === row.id) {
+        return {
+          ...item,
+          salary: row.salary,
+          equipmentCosts: row.equipmentCosts,
+          overheads: row.overheads,
+          estimatedProfit: row.estimatedProfit,
+        };
+      } else if (item.child.length !== 0) {
+        return {
+          ...item,
+          child: parentsItemUpdater(item.child, row),
+        };
+      } else {
+        return item;
+      }
+    });
+  };
 
-  const handleDeleter = async (id: number) => {
-    await deleteRow(id);
+  const handleDeleter = (id: number) => {
+    deleteRow(id);
     dispatch(setRowsData(itemDeleter(id, rows)));
   };
 
@@ -83,6 +100,18 @@ export const OptionsTree: FC<Props> = ({ rows }) => {
       dispatch(setRowsData(inputItemAdder(id, rows)));
     }
   };
+
+  useEffect(() => {
+    if (result.status === "fulfilled") {
+      let newRows: IRows = rows;
+      if (result.data.changed.length > 0) {
+        result.data.changed.forEach(
+          (item) => (newRows = parentsItemUpdater(newRows, item))
+        );
+      }
+      dispatch(setRowsData(newRows));
+    }
+  }, [result]);
 
   const treeMapper = (arr: any[]) => {
     return (

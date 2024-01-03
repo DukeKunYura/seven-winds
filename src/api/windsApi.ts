@@ -35,7 +35,7 @@ export const windsApi = createApi({
       }),
     }),
     // удаление строки
-    deleteRow: builder.mutation<void, number>({
+    deleteRow: builder.mutation<IRowResponse, number>({
       query: (id) => ({
         url: `/row/${id}/delete`,
         method: "DELETE",

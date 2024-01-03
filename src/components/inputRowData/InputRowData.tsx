@@ -89,7 +89,6 @@ export const InputRowData: FC<Props> = ({
   const parentsItemAdder = (rows: IRows, row: IRow): IRows => {
     return rows.map((item) => {
       if (item.id === row.id) {
-        console.log(row.salary);
         return {
           ...item,
           salary: row.salary,
